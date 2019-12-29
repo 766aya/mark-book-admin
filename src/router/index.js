@@ -23,6 +23,13 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from) => {
   console.log(`%c router afterEach ====> from ${from.path} to ${to.path}`, 'color: #35495E')
+  if (to.meta) {
+    let breadcrumbs = to.meta.breadcrumbs || []
+    let defaultTitle = '书签/内容收藏管理系统'
+    if (breadcrumbs.length !== 0) {
+      document.title = `${breadcrumbs[breadcrumbs.length - 1].title}-${defaultTitle}`
+    }
+  }
   NProgress.done()
 })
 

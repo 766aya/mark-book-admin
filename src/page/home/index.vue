@@ -12,8 +12,16 @@
       <div class="menu-layout">
         
       </div>
-      <div class="container">
-        <router-view></router-view>
+      <div class="main-layout">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item
+            v-for="item in breadcrumbList"
+            :key="item.title"
+            :to="{path: item.path}">
+            {{ item.title }}
+          </el-breadcrumb-item>
+        </el-breadcrumb>
+        <router-view class="container"></router-view>
       </div>
     </div>
   </div>
@@ -21,7 +29,36 @@
 
 <script>
 export default {
-  name: 'HomeLayout'
+  name: 'HomeLayout',
+  computed: {
+    breadcrumbList () {
+      if (this.$route.meta) {
+        let breadcrumbs = this.$route.meta.breadcrumbs || []
+        if (breadcrumbs.length !== 0) {
+          return breadcrumbs
+        }
+      }
+      if (this.$route.meta.title || this.$route.name) {
+        return [
+          {
+            path: '/',
+            title: "首页"
+          }, {
+            path: this.$route.path,
+            query: this.$route.query,
+            title: this.$route.meta.title || this.$route.name || ''
+          }
+        ]
+      } else {
+        return [
+          {
+            path: '/',
+            title: "首页"
+          }
+        ]
+      }
+    }
+  }
 }
 </script>
 
@@ -67,13 +104,20 @@ export default {
       background: #FFFFFF;
       box-shadow: 0px 0px 10px #EEEEEE;
     }
-    > .container {
+    > .main-layout {
       margin: 15px;
-      padding: 10px;
-      width: 100%;
-      background: #FFFFFF;
-      border-radius: 5px;
-      box-shadow: 0px 0px 10px #EEEEEE;
+      width: calc(100vw - 200px - 30px);
+      display: flex;
+      flex-direction: column;
+      > .container {
+        height: calc(100vh - 110px - 14px);
+        overflow-y: scroll;
+        margin-top: 10px;
+        padding: 10px;
+        background: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px #EEEEEE;
+      }
     }
   }
 }

@@ -5,7 +5,6 @@ export default [
     component: () => import('@/page/signin')
   }, {
     path: '/',
-    name: '首页',
     redirect: '/index'
   }
 ]
