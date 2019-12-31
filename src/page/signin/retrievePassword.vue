@@ -34,12 +34,15 @@
       </el-input>
     </el-form-item>
     <el-form-item class="submit-form-item">
-      <el-button class="signin-button" type="primary" @click="handleRegister">找回密码</el-button>
+      <el-button class="signin-button" type="primary" @click="handleRegister">重置密码</el-button>
     </el-form-item>
   </el-form> 
 </template>
 
 <script>
+import { getEmail } from "@/api/email"
+import { resetPwd } from "@/api/auth"
+
 export default {
   name: "RetrievePassword",
   data () {
@@ -64,7 +67,7 @@ export default {
           { required: true, pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/, message: "请输入正确的邮箱地址", trigger:"blur" }
         ],
         code: [
-          { required: true, min: 6, max: 6, message: "请输入正确的验证码", trigger: 'blur' }
+          { required: true, min: 4, max: 6, message: "请输入正确的验证码", trigger: 'blur' }
         ]
       },
       formData: {},
@@ -87,19 +90,29 @@ export default {
       }
       this.$refs['retrievePassword'].validateField('email', (valid) => {
         if (valid) { return }
-        this.time = 60
-        this.timer = setInterval(() => {
-          if (this.time <= 1) {
-            clearInterval(this.timer)
-          }
-          this.time -= 1
-        }, 1000)
+        getEmail(this.formData.email, 'resetPwd').then(() => {
+          this.$message.success('邮件发送成功')
+          this.time = 60
+          this.timer = setInterval(() => {
+            if (this.time <= 1) {
+              clearInterval(this.timer)
+            }
+            this.time -= 1
+          }, 1000)
+        }).catch(() => {
+          this.$message.error('邮件发送失败，请稍后重试')
+        })
       })
     },
     handleRegister () {
       this.$refs['retrievePassword'].validate((valid) => {
         if (valid) {
-          this.$message.success('注册成功')
+          resetPwd(this.formData).then(() => {
+            this.$message.success('重置密码成功')
+            this.$refs['retrievePassword'].resetForm()
+          }).catch((err) => {
+            this.$message.error(err)
+          })
         }
       })
     }

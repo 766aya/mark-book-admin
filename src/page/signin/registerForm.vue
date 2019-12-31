@@ -119,6 +119,9 @@ export default {
         if (valid) {
           userRegister(this.formData).then(() => {
             this.$message.success('注册成功')
+            this.$refs['registerForm'].resetForm()
+          }).catch((err) => {
+            this.$message.error(err)
           })
         }
       })

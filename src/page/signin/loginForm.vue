@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { userLogin } from "@/api/auth"
+
 export default {
   name: "RegisterForm",
   data () {
@@ -40,7 +42,13 @@ export default {
     handleLogin () {
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
-          this.$message.success('登陆成功')
+          userLogin(this.formData).then(({ data }) => {
+            console.log(data)
+            this.$message.success('登陆成功')
+            this.$refs['loginForm'].resetForm()
+          }).catch((err) => {
+            this.$mesage.error(err)
+          })
         }
       })
     }
