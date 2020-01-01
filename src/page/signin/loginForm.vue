@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import { userLogin } from "@/api/auth"
-
 export default {
   name: "RegisterForm",
   data () {
@@ -35,19 +33,20 @@ export default {
           { required: true, message: "密码不能为空", trigger:"blur" }
         ]
       },
-      formData: {}
+      formData: {
+        username: "admin",
+        password: "admin"
+      }
     }
   },
   methods: {
     handleLogin () {
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
-          userLogin(this.formData).then(({ data }) => {
-            console.log(data)
+          this.$store.dispatch('LoginByUsername', this.formData).then(() => {
             this.$message.success('登陆成功')
             this.$refs['loginForm'].resetForm()
-          }).catch((err) => {
-            this.$mesage.error(err)
+            this.$router.push({path: '/'})
           })
         }
       })

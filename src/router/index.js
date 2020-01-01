@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
 import PagesRoute from "./pages/index"
 import ViewsRoute from "./views/index"
+import openUrl from "@/const/openUrl"
+import Store from "@/store"
 
 NProgress.configure({ showSpinner: false })
 Vue.use(VueRouter)
@@ -18,7 +20,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  next()
+  if (openUrl.includes(to.path) || Store.getters.accessToken) {
+    next()
+  } else {
+    next({path: '/signin'})
+  }
 })
 
 router.afterEach((to, from) => {

@@ -120,8 +120,12 @@ export default {
           userRegister(this.formData).then(() => {
             this.$message.success('注册成功')
             this.$refs['registerForm'].resetForm()
-          }).catch((err) => {
-            this.$message.error(err)
+            this.$router.push({
+              path: '',
+              query: {
+                type: 'login'
+              }
+            })
           })
         }
       })
