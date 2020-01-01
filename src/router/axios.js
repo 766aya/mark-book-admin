@@ -23,8 +23,8 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(res => {
   NProgress.done()
-  const message = res.data.msg
-
+  const message = res.data.msg || ''
+  const status = res.status
   if (status === 401) {
     Message({
       message: message,

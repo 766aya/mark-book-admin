@@ -45,7 +45,7 @@ export default {
         if (valid) {
           this.$store.dispatch('LoginByUsername', this.formData).then(() => {
             this.$message.success('登陆成功')
-            this.$refs['loginForm'].resetForm()
+            this.$refs['loginForm'].resetFields()
             this.$router.push({path: '/'})
           })
         }

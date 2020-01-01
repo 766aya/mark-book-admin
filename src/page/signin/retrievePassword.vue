@@ -109,7 +109,7 @@ export default {
         if (valid) {
           resetPwd(this.formData).then(() => {
             this.$message.success('重置密码成功')
-            this.$refs['retrievePassword'].resetForm()
+            this.$refs['retrievePassword'].resetFields()
             this.$router.push({
               path: '',
               query: {

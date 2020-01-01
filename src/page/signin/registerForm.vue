@@ -119,7 +119,7 @@ export default {
         if (valid) {
           userRegister(this.formData).then(() => {
             this.$message.success('注册成功')
-            this.$refs['registerForm'].resetForm()
+            this.$refs['registerForm'].resetFields()
             this.$router.push({
               path: '',
               query: {
