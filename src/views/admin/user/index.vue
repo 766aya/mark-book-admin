@@ -1,5 +1,11 @@
 <template>
-  <div>用户管理</div>
+  <div id="user-view">
+    <ZSearchBar
+      v-model="listQuery"
+      :option="mainSearchOption"
+      @search="handleFilter">
+    </ZSearchBar>
+  </div>
 </template>
 
 <script>

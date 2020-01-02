@@ -1,36 +1,28 @@
 <template>
-  <div id="menu">
+  <div id="menu-view">
     <zSearchBar
       v-model="listQuery"
       :option="mainSearchOption"
       @search="handleFilter"
     />
-    <zCard>
-      <zControlBar title="菜单管理列表" :total="pagination.total">
-        <zButton type="create" permission="sys_menu_add" @click="handleCreate"></zButton>
-      </zControlBar>
-      <avue-crud
-        ref="menuTable"
-        :option="mainTableOption"
-        :data="mainTableData"
-        :table-loading="tableLoading"
-        :page="pagination"
-        @size-change="sizeChange"
-        @current-change="currentChange">
-        <template slot="icon" slot-scope="scope">
-          <span :class="scope.row.icon"></span>
-        </template>
-        <template slot="icon2" slot-scope="scope">
-          <span :class="scope.row.icon"></span>
-        </template>
-        <template slot="menu" slot-scope="scope">
-          <z-button type="textcreate" permission="sys_menu_add" @click="handleCreateChildren(scope.row)"></z-button>
-          <z-button type="textview" @click="handleDetail(scope.row)"></z-button>
-          <z-button type="textupdate" permission="sys_menu_edit" @click="handleUpdate(scope.row)"></z-button>
-          <z-button type="textdelete" permission="sys_menu_del" @click="handleDelete(scope.row)"></z-button>
-        </template>
-      </avue-crud>
-    </zCard>
+    <zControlBar title="菜单管理列表" :total="pagination.total">
+      <zButton type="create" permission="sys_menu_add" @click="handleCreate"></zButton>
+    </zControlBar>
+    <avue-crud
+      ref="menuTable"
+      :option="mainTableOption"
+      :data="mainTableData"
+      :table-loading="tableLoading">
+      <template slot="icon" slot-scope="scope">
+        <span :class="scope.row.icon"></span>
+      </template>
+      <template slot="menu" slot-scope="scope">
+        <z-button type="textcreate" @click="handleCreateChildren(scope.row)"></z-button>
+        <z-button type="textview" @click="handleDetail(scope.row)"></z-button>
+        <z-button type="textupdate" @click="handleUpdate(scope.row)"></z-button>
+        <z-button type="textdelete" @click="handleDelete(scope.row)"></z-button>
+      </template>
+    </avue-crud>
     <mainDialog ref="mainDialog" @create="handleCreateSubmit" @update="handleUpdateSubmit"></mainDialog>
   </div>
 </template>

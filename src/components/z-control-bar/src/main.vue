@@ -35,7 +35,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 25px;
+  margin: 25px 0;
   > div {
     display: flex;
     flex: 1;

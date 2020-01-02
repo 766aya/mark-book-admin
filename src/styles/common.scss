@@ -11,3 +11,34 @@ body {
 * {
   outline: none;
 }
+
+.avue-crud {
+  .avue-crud__pagination {
+    margin-top: 5px;
+  }
+}
+
+.avue-detail {
+  .avue-detail__box {
+    font-size: 14px;
+    height: auto;
+    min-height: 20px;
+    display: flex;
+    border: 1px dashed #DDDDDD;
+    margin: 5px;
+    .avue-detail__label {
+      line-height: 25px;
+      width: 80px;
+      text-align: right;
+      padding-right: 10px;
+      font-weight: 700;
+    }
+
+    .avue-detail__content {
+      line-height: 25px;
+      word-wrap: break-word;
+      flex: 1;
+      margin-right: 10px;
+    }
+  }
+}

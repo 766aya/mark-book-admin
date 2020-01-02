@@ -19,7 +19,7 @@ export const mainSearchOption = [{
 export const mainTableOption = {
   header: false,
   index: true,
-  border: false,
+  border: true,
   indexLabel: "序号",
   selection: false,
   stripe: true,
@@ -78,11 +78,6 @@ export const mainFormOption = {
   labelWidth: 120,
   menuBtn: false,
   column: [{
-    label: "父级ID",
-    prop: "pid",
-    disabled: true,
-    hide: true,
-  }, {
     label: "菜单名称",
     prop: "label",
     rules: [{
