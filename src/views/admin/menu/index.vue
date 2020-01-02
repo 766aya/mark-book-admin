@@ -6,7 +6,7 @@
       @search="handleFilter"
     />
     <zControlBar title="菜单管理列表" :total="pagination.total">
-      <zButton type="create" permission="sys_menu_add" @click="handleCreate"></zButton>
+      <zButton type="create" @click="handleCreate"></zButton>
     </zControlBar>
     <avue-crud
       ref="menuTable"

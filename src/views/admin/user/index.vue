@@ -5,11 +5,75 @@
       :option="mainSearchOption"
       @search="handleFilter">
     </ZSearchBar>
+    <zControlBar title="用户管理列表" :total="pagination.total">
+      <zButton type="create" @click="handleCreate"></zButton>
+    </zControlBar>
+    <avue-crud
+      ref="menuTable"
+      :option="mainTableOption"
+      :page="pagination"
+      :data="mainTableData"
+      :table-loading="tableLoading">
+      <template slot="menu" slot-scope="scope">
+        <z-button type="textview" @click="handleDetail(scope.row)"></z-button>
+        <z-button type="textupdate" @click="handleUpdate(scope.row)"></z-button>
+        <z-button type="textdelete" @click="handleDelete(scope.row)"></z-button>
+      </template>
+    </avue-crud>
   </div>
 </template>
 
 <script>
+import {
+  mainSearchOption,
+  mainTableOption,
+} from "./const/index"
+import mixins from "@/mixins/index"
+import {
+  getUserData,
+  deleteUser
+} from "@/api/user/index"
+
 export default {
-  name: "UserView"
+  name: "UserView",
+  mixins: [mixins],
+  data () {
+    return {
+      mainSearchOption,
+      mainTableOption,
+      mainTableData: []
+    }
+  },
+  methods: {
+    getList () {
+      this.tableLoading = true
+      getUserData(this.listQuery).then(({ data }) => {
+        this.mainTableData = data.data.records
+        this.pagination.total = data.data.total
+        this.tableLoading = false
+      })
+    },
+    handleCreate () {
+
+    },
+    handleDetail () {
+
+    },
+    handleUpdate () {
+
+    },
+    handleDelete (rowData) {
+      this.$confirm(`是否确认删除菜单：${rowData.username}`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        return deleteUser(rowData.id)
+      }).then(() => {
+        this.$message.success("删除成功")
+        this.handleFilter()
+      }).catch(() => {})
+    },
+  }
 }
 </script>
