@@ -32,47 +32,6 @@ export default {
       formData: {}
     }
   },
-  watch: {
-    formData: {
-      deep: true,
-      handler () {
-        if (this.formData.type === "0") {
-          this.$set(this.mainFormOption.column[4], 'display', true)
-          this.$set(this.mainFormOption.column[5], 'display', true)
-          this.$set(this.mainFormOption.column[6], 'display', true)
-          this.$set(this.mainFormOption.column[7], 'display', true)
-          this.$set(this.mainFormOption.column[8], 'display', true)
-          this.$set(this.mainFormOption.column[9], 'display', false)
-          this.$set(this.mainFormOption.column[10], 'display', true)
-          this.$set(this.mainFormOption.column[11], 'display', true)
-          this.$set(this.mainFormOption.column[12], 'display', true)
-          this.$set(this.mainFormOption.column[13], 'display', true)
-        } else if (this.formData.type === "1") {
-          this.$set(this.mainFormOption.column[4], 'display', false)
-          this.$set(this.mainFormOption.column[5], 'display', false)
-          this.$set(this.mainFormOption.column[6], 'display', false)
-          this.$set(this.mainFormOption.column[7], 'display', false)
-          this.$set(this.mainFormOption.column[8], 'display', false)
-          this.$set(this.mainFormOption.column[9], 'display', true)
-          this.$set(this.mainFormOption.column[10], 'display', false)
-          this.$set(this.mainFormOption.column[11], 'display', false)
-          this.$set(this.mainFormOption.column[12], 'display', false)
-          this.$set(this.mainFormOption.column[13], 'display', false)
-        } else {
-          this.$set(this.mainFormOption.column[4], 'display', false)
-          this.$set(this.mainFormOption.column[5], 'display', false)
-          this.$set(this.mainFormOption.column[6], 'display', false)
-          this.$set(this.mainFormOption.column[7], 'display', false)
-          this.$set(this.mainFormOption.column[8], 'display', false)
-          this.$set(this.mainFormOption.column[9], 'display', false)
-          this.$set(this.mainFormOption.column[10], 'display', false)
-          this.$set(this.mainFormOption.column[11], 'display', false)
-          this.$set(this.mainFormOption.column[12], 'display', false)
-          this.$set(this.mainFormOption.column[13], 'display', false)
-        }
-      }
-    }
-  },
   computed: {
     detailOption () {
       return {

@@ -120,9 +120,9 @@ export default {
 
 <style lang="scss">
 .z-search-bar {
-  padding: 20px 10px;
-  width: calc(100% - 60px);
+  display: flex;
   .avue-form {
+    flex: 1;
     .el-form {
       .el-row {
         padding: 0;
@@ -132,7 +132,7 @@ export default {
           .el-col {
             padding: 0;
             .el-form-item {
-              margin-bottom: 5px;
+              margin-bottom: 0px;
             }
           }
         }

@@ -128,8 +128,39 @@ export default {
     > .menu-layout {
       min-width: 200px;
       height: 100%;
-      background: #FFFFFF;
+      background: #4285FF;
       box-shadow: 0px 0px 10px #EEEEEE;
+      overflow: hidden;
+      .el-menu {
+        background: transparent;
+        overflow: hidden;
+        border-right: none;
+        .el-submenu__title {
+          i {
+            margin-right: 5px;
+          }
+          i, span {
+            color: #FFFFFF;
+          }
+        }
+        .el-menu-item {
+          i {
+            margin-right: 5px;
+          }
+          i, span {
+            color: #FFFFFF;
+          }
+        }
+        .el-menu-item, .el-submenu__title {
+          border-left: 3px solid transparent;
+          &.is-active, &:hover {
+            background: #004e9c;
+          }
+          &.is-active {
+            border-left: 3px solid #FFFFFF;
+          }
+        }
+      }
     }
     > .main-layout {
       margin: 15px;

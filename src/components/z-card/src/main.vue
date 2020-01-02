@@ -41,12 +41,14 @@ export default {
 </script>
 
 <style lang="scss">
+.z-card + .z-card {
+  margin-top: 15px;
+}
 .z-card {
-  margin: 20px 20px 0px 20px;
+  // margin: 20px 20px 0px 20px;
   background: #FFFFFF;
-  width: calc(100% - 80px);
   border: 1px solid;
-  padding: 20px;
+  padding: 10px;
   border-radius: 4px;
   &.primary {
     background-color: #F0F8FF;

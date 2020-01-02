@@ -74,7 +74,7 @@ export default {
     },
     handleCreate () {
       this.$refs['mainDialog'].open({
-        parentId: -1
+        pid: 0
       }, 'create')
     },
     handleDetail (rowData) {
@@ -85,7 +85,7 @@ export default {
     },
     handleCreateChildren (rowData) {
       this.$refs['mainDialog'].open({
-        parentId: rowData.id
+        pid: rowData.id
       }, 'create')
     },
     handleDelete (rowData) {
