@@ -3,6 +3,7 @@ import {
   setStore
 } from "@/util/store"
 import { userLogin } from "@/api/auth"
+import { getMenuList } from "@/api/menu"
 
 export default {
   state: {
@@ -11,7 +12,10 @@ export default {
     }) || '',
     userInfo: getStore({
       name: "userInfo"
-    }) || {}
+    }) || {},
+    menus: getStore({
+      name: 'menus'
+    }) || []
   },
   actions: {
     LoginByUsername({ commit }, formData) {
@@ -29,7 +33,18 @@ export default {
       return new Promise((resolve) => {
         commit('SET_ACCESS_TOKEN', "")
         commit('SET_USER_INFO', {})
+        commit('SET_MENU', [])
         resolve()
+      })
+    },
+    GetUserMenuList({ commit }) {
+      return new Promise((resolve, reject) => {
+        getMenuList().then(({ data }) => {
+          commit('SET_MENU', data.data)
+          resolve(data.data)
+        }).catch((err) => {
+          reject(err)
+        })
       })
     }
   },
@@ -47,6 +62,14 @@ export default {
       setStore({
         name: 'userInfo',
         content: userInfo,
+        type: "session"
+      })
+    },
+    SET_MENU (state, menus) {
+      state.menus = menus
+      setStore({
+        name: "menus",
+        content: menus,
         type: "session"
       })
     }

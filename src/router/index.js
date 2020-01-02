@@ -5,11 +5,12 @@ import PagesRoute from "./pages/index"
 import ViewsRoute from "./views/index"
 import openUrl from "@/const/openUrl"
 import Store from "@/store"
+import AvueRouter from './avue-router'
 
 NProgress.configure({ showSpinner: false })
 Vue.use(VueRouter)
 
-const router = new VueRouter({
+const Router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -18,7 +19,7 @@ const router = new VueRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+Router.beforeEach((to, from, next) => {
   NProgress.start()
   if (openUrl.includes(to.path) || Store.getters.accessToken) {
     next()
@@ -27,8 +28,8 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-router.afterEach((to, from) => {
-  console.log(`%c router afterEach ====> from ${from.path} to ${to.path}`, 'color: #35495E')
+Router.afterEach((to, from) => {
+  console.log(`%c Router afterEach ====> from ${from.path} to ${to.path}`, 'color: #35495E')
   if (to.meta) {
     let breadcrumbs = to.meta.breadcrumbs || []
     let defaultTitle = '书签/内容收藏管理系统'
@@ -39,4 +40,7 @@ router.afterEach((to, from) => {
   NProgress.done()
 })
 
-export default router
+AvueRouter.install(Router, Store)
+Router.$avueRouter.formatRoutes(Store.state.user.menus, true)
+
+export default Router

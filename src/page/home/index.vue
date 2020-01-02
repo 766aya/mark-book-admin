@@ -10,7 +10,18 @@
     </div>
     <div class="main-bar">
       <div class="menu-layout">
-        
+        <el-menu
+          :default-active="nowTagValue"
+          :show-timeout="200"
+          :collapse="keyCollapse"
+          unique-opened
+          mode="vertical">
+          <sidebarItem
+            :menu="menus"
+            :props="website.menu.props"
+            :collapse="keyCollapse"
+            first/>
+        </el-menu>
       </div>
       <div class="main-layout">
         <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -28,9 +39,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import sidebarItem from "./menuItem"
+
 export default {
   name: 'HomeLayout',
+  components: {
+    sidebarItem
+  },
   computed: {
+    ...mapGetters(['website', 'menus', 'keyCollapse']),
     breadcrumbList () {
       if (this.$route.meta) {
         let breadcrumbs = this.$route.meta.breadcrumbs || []
@@ -57,7 +75,16 @@ export default {
           }
         ]
       }
+    },
+    nowTagValue: function() {
+      return this.$router.$avueRouter.getValue(this.$route)
     }
+  },
+  created () {
+    this.$store.dispatch('GetUserMenuList').then(data => {
+      if (data.length === 0) return
+      this.$router.$avueRouter.formatRoutes(data, true)
+    })
   }
 }
 </script>
