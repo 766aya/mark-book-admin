@@ -80,6 +80,7 @@ export const mainFormOption = {
   column: [{
     label: "菜单名称",
     prop: "label",
+    span: 12,
     rules: [{
       required: true,
       message: "类型不能为空",
@@ -88,9 +89,11 @@ export const mainFormOption = {
   }, {
     label: "路由名称",
     prop: "name",
+    span: 12,
   }, {
     label: "类型",
     prop: "type",
+    span: 12,
     type: "select",
     valueDefault: "1",
     dicData: [{
@@ -105,11 +108,14 @@ export const mainFormOption = {
   }, {
     label: "图标",
     prop: "icon",
+    span: 12,
   },{
     label: "页面路由",
     prop: "path",
+    span: 12,
   }, {
     label: "组件路径",
     prop: "component",
+    span: 12,
   }]
 }

@@ -43,3 +43,41 @@ export const mainTableOption = {
     }
   ]
 }
+
+export const mainFormOption = {
+  labelWidth: 120,
+  menuBtn: false,
+  column: [
+    {
+      label: "用户名",
+      prop: "username",
+      span: 12
+    }, {
+      label: "邮箱地址",
+      prop: "email",
+      span: 12
+    }, {
+      label: "密码",
+      prop: "password",
+      span: 12
+    }, {
+      label: "是否管理员",
+      prop: "adminFlag",
+      type: "select",
+      dicData: [
+        {
+          label: "是",
+          value: "1"
+        }, {
+          label: "否",
+          value: "0"
+        }
+      ],
+      span: 12
+    }, {
+      label: "头像",
+      prop: "avatar",
+      span: 12
+    }
+  ]
+}

@@ -20,6 +20,7 @@
         <z-button type="textdelete" @click="handleDelete(scope.row)"></z-button>
       </template>
     </avue-crud>
+    <mainDialog ref="mainDialog"></mainDialog>
   </div>
 </template>
 
@@ -33,10 +34,14 @@ import {
   getUserData,
   deleteUser
 } from "@/api/user/index"
+import mainDialog from "./mainDialog"
 
 export default {
   name: "UserView",
   mixins: [mixins],
+  components: {
+    mainDialog
+  },
   data () {
     return {
       mainSearchOption,
@@ -54,13 +59,13 @@ export default {
       })
     },
     handleCreate () {
-
+      this.$refs['mainDialog'].open({}, 'create')
     },
-    handleDetail () {
-
+    handleDetail (rowData) {
+      this.$refs['mainDialog'].open(rowData, 'detail')
     },
-    handleUpdate () {
-
+    handleUpdate (rowData) {
+      this.$refs['mainDialog'].open(rowData, 'update')
     },
     handleDelete (rowData) {
       this.$confirm(`是否确认删除菜单：${rowData.username}`, '提示', {
