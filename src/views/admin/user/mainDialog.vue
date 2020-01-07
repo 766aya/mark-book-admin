@@ -23,6 +23,7 @@ export default {
         update: "修改用户",
         detail: "用户详情"
       },
+      status: "detail",
       formData: {},
       mainFormOption,
     }

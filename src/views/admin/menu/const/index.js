@@ -1,6 +1,6 @@
 export const mainSearchOption = [{
   label: "菜单名称",
-  prop: "name"
+  prop: "label"
 }, {
   label: "是否缓存",
   prop: "keepAlive",

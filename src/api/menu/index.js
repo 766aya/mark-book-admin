@@ -8,8 +8,10 @@ export function getMenuById (id) {
   return request.get(`/api/menu/${id}`)
 }
 
-export function getMenuTreeAll () {
-  return request.get(`/api/menu/listAll`)
+export function getMenuTreeAll (params) {
+  return request.get(`/api/menu/listAll`, {
+    params
+  })
 }
 
 export function deleteMenu (id) {
