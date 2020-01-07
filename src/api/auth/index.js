@@ -11,3 +11,7 @@ export function userLogin (formData) {
 export function resetPwd (formData) {
   return request.post(`/api/auth/resetPwd`, formData)
 }
+
+export function userLogout () {
+  return request.post(`/api/auth/logout`)
+}

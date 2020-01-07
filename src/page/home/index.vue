@@ -6,6 +6,24 @@
           <img src="/images/logo-white.png">
         </div>
         <div class="title">书签/内容收藏管理系统</div>
+        <div style="flex: 1;"></div>
+        <div class="info-layout">
+          <div class="userinfo">
+            <div class="avatar">
+              <img :src="userInfo.avatar">
+            </div>
+            <div class="username">{{ userInfo.username }}</div>
+            <el-dropdown @command="handleCommand">
+              <span class="el-dropdown-link">
+                更多操作<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item class="userinfo-menu-item" command="userinfo">个人信息</el-dropdown-item>
+                <el-dropdown-item class="userinfo-menu-item" command="logout" divided>退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </div>
       </div>
     </div>
     <div class="main-bar">
@@ -41,6 +59,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import sidebarItem from "./menuItem"
+import {
+  userLogout
+} from "@/api/auth"
 
 export default {
   name: 'HomeLayout',
@@ -48,7 +69,7 @@ export default {
     sidebarItem
   },
   computed: {
-    ...mapGetters(['website', 'menus', 'keyCollapse']),
+    ...mapGetters(['website', 'menus', 'keyCollapse', 'userInfo']),
     breadcrumbList () {
       if (this.$route.meta) {
         let breadcrumbs = this.$route.meta.breadcrumbs || []
@@ -80,6 +101,26 @@ export default {
       return this.$router.$avueRouter.getValue(this.$route)
     }
   },
+  methods: {
+    handleCommand (key) {
+      switch (key) {
+        case 'userinfo':
+          
+          break;
+        case 'logout':
+          userLogout().then(() => {
+            this.$store.dispatch('FedLogOut')
+            this.$router.push({ path: '/signin' })
+          }).catch(() => {
+            this.$store.dispatch('FedLogOut')
+            this.$router.push({ path: '/signin' })
+          })
+          break;
+        default:
+          break;
+      }
+    }
+  },
   created () {
     this.$store.dispatch('GetUserMenuList').then(data => {
       if (data.length === 0) return
@@ -106,6 +147,7 @@ export default {
     > .content {
       padding: 0 50px;
       display: flex;
+      flex: 1;
       > .logo {
         height: 100%;
         width: 50px;
@@ -118,6 +160,38 @@ export default {
         font-size: 25px;
         line-height: 50px;
         margin-left: 10px;
+      }
+      .info-layout {
+        display: flex;
+        align-items: center;
+        .userinfo {
+          display: flex;
+          align-items: center;
+          > .avatar {
+            height: 40px;
+            width: 40px;
+            overflow: hidden;
+            border-radius: 50%;
+            background: #FFFFFF;
+            img {
+              width: 100%;
+            }
+          }
+          .username {
+            margin-left: 10px;
+            color: #FFFFFF;
+            user-select: none;
+          }
+          .el-dropdown-link {
+            cursor: pointer;
+            color: #FFFFFF;
+            font-size: 12px;
+            margin-left: 10px;
+          }
+          .el-icon-arrow-down {
+            font-size: 12px;
+          }
+        }
       }
     }
   }
@@ -178,5 +252,8 @@ export default {
       }
     }
   }
+}
+.userinfo-menu-item {
+  font-size: 12px;
 }
 </style>

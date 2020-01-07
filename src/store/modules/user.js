@@ -4,6 +4,7 @@ import {
 } from "@/util/store"
 import { userLogin } from "@/api/auth"
 import { getMenuList } from "@/api/menu"
+import { getUserInfo } from "@/api/user"
 
 export default {
   state: {
@@ -22,7 +23,8 @@ export default {
       return new Promise((resolve, reject) => {
         userLogin(formData).then(({ data }) => {
           commit('SET_ACCESS_TOKEN', data.data.access_token)
-          commit('SET_USER_INFO', data.data)
+          return this.dispatch('GetUserInfo')
+        }).then((data) => {
           resolve(data.data)
         }).catch((err) => {
           reject(err)
@@ -41,6 +43,16 @@ export default {
       return new Promise((resolve, reject) => {
         getMenuList().then(({ data }) => {
           commit('SET_MENU', data.data)
+          resolve(data.data)
+        }).catch((err) => {
+          reject(err)
+        })
+      })
+    },
+    GetUserInfo ({ commit }) {
+      return new Promise((resolve, reject) => {
+        getUserInfo().then(({ data }) => {
+          commit('SET_USER_INFO', data.data)
           resolve(data.data)
         }).catch((err) => {
           reject(err)

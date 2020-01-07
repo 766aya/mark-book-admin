@@ -21,3 +21,7 @@ export function updateUser (formData) {
 export function deleteUser (id) {
   return request.delete(`/api/user/${id}`)
 }
+
+export function getUserInfo () {
+  return request.get(`/api/user/info`)
+}
