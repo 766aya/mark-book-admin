@@ -77,7 +77,8 @@ export const mainFormOption = {
     }, {
       label: "头像",
       prop: "avatar",
-      span: 12
+      span: 12,
+      formslot: true,
     }
   ]
 }

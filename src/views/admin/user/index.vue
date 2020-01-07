@@ -20,7 +20,7 @@
         <z-button type="textdelete" @click="handleDelete(scope.row)"></z-button>
       </template>
     </avue-crud>
-    <mainDialog ref="mainDialog"></mainDialog>
+    <mainDialog ref="mainDialog" @create="handleCreateSubmit" @update="handleUpdateSubmit"></mainDialog>
   </div>
 </template>
 
@@ -32,7 +32,9 @@ import {
 import mixins from "@/mixins/index"
 import {
   getUserData,
-  deleteUser
+  deleteUser,
+  createUser,
+  updateUser
 } from "@/api/user/index"
 import mainDialog from "./mainDialog"
 
@@ -78,6 +80,18 @@ export default {
         this.$message.success("删除成功")
         this.handleFilter()
       }).catch(() => {})
+    },
+    handleCreateSubmit (formData) {
+      createUser(formData).then(() => {
+        this.$message.success('新增用户成功')
+        this.$refs['mainDialog'].close()
+      })
+    },
+    handleUpdateSubmit (formData) {
+      updateUser(formData).then(() => {
+        this.$message.success('修改用户成功')
+        this.$refs['mainDialog'].close()
+      })
     },
   }
 }

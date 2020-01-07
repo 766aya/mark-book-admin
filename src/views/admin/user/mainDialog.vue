@@ -5,8 +5,12 @@
     @closed="handleClosed"
     @handleSubmit="handleSubmit"
     :isBtnGroup="status !== 'detail'">
-      <avue-detail v-if="status === 'detail'" :option="mainFormOption" v-model="formData"></avue-detail>
-      <avue-form v-else v-model="formData" :option="mainFormOption" ref="form"></avue-form>
+      <avue-detail v-if="status === 'detail'" :option="mainFormOption" v-model="formData">
+        <img slot="avatarForm" v-if="formData.avatar" class="avatar" :src="formData.avatar">
+      </avue-detail>
+      <avue-form v-else v-model="formData" :option="mainFormOption" ref="form">
+        <ZUpload slot="avatar" v-model="formData.avatar"></ZUpload>
+      </avue-form>
   </ZDialog>
 </template>
 
@@ -65,6 +69,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scope>
+.avatar {
+  width: 150px;
+  height: 150px;
+}
 </style>

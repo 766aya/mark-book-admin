@@ -3,13 +3,15 @@ import ZCard from "./z-card/index"
 import ZDialog from "./z-dialog/index"
 import ZSearchBar from './z-search-bar/index'
 import ZControlBar from './z-control-bar/index'
+import ZUpload from './z-upload/index'
 
 const components = [
   ZButton,
   ZCard,
   ZDialog,
   ZSearchBar,
-  ZControlBar
+  ZControlBar,
+  ZUpload
 ]
 
 const install = function (Vue) {
@@ -28,5 +30,6 @@ export default {
   ZCard,
   ZDialog,
   ZSearchBar,
-  ZControlBar
+  ZControlBar,
+  ZUpload
 }
