@@ -87,7 +87,8 @@ RouterPlugin.install = function (router, store) {
         })()
 
         //特殊处理组件
-        const component = 'views' + oMenu.path
+        // const component = 'views' + oMenu.path
+        const component = oMenu.component
         const name = oMenu[propsDefault.label]
         const icon = oMenu[propsDefault.icon]
         const children = oMenu[propsDefault.children]
