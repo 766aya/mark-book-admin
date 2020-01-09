@@ -17,6 +17,13 @@ export default [
             }
           ]
         }
+      }, {
+        path: '/user/info',
+        name: "userinfo",
+        component: () => import('@/views/admin/user/info'),
+        meta: {
+          title: "用户信息"
+        }
       }
     ]
   }

@@ -5,7 +5,7 @@
         <div class="logo">
           <img src="/images/logo-white.png">
         </div>
-        <div class="title">书签/内容收藏管理系统</div>
+        <div class="title">通用管理系统</div>
         <div style="flex: 1;"></div>
         <div class="info-layout">
           <div class="userinfo">
@@ -105,7 +105,9 @@ export default {
     handleCommand (key) {
       switch (key) {
         case 'userinfo':
-          
+          this.$router.push({
+            path: "/user/info"
+          })
           break;
         case 'logout':
           userLogout().then(() => {

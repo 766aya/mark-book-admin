@@ -1,23 +1,20 @@
 <template>
-  <div id="menu-view">
-    <zSearchBar
+  <div class="dsms-student-view">
+    <ZSearchBar
       v-model="listQuery"
       :option="mainSearchOption"
-      @search="handleFilter"
-    />
-    <zControlBar title="菜单管理列表" :total="pagination.total">
+      @search="handleFilter">
+    </ZSearchBar>
+    <zControlBar title="学员管理列表" :total="pagination.total">
       <zButton type="create" @click="handleCreate"></zButton>
     </zControlBar>
     <avue-crud
       ref="menuTable"
       :option="mainTableOption"
       :data="mainTableData"
+      :page="pagination"
       :table-loading="tableLoading">
-      <template slot="icon" slot-scope="scope">
-        <span :class="scope.row.icon"></span>
-      </template>
       <template slot="menu" slot-scope="scope">
-        <z-button type="textcreate" @click="handleCreateChildren(scope.row)"></z-button>
         <z-button type="textview" @click="handleDetail(scope.row)"></z-button>
         <z-button type="textupdate" @click="handleUpdate(scope.row)"></z-button>
         <z-button type="textdelete" @click="handleDelete(scope.row)"></z-button>
@@ -28,22 +25,21 @@
 </template>
 
 <script>
-import mixins from "@/mixins/index"
 import {
   mainSearchOption,
   mainTableOption,
 } from "./const/index"
+import mixins from "@/mixins/index"
 import {
-  getMenuTreeAll,
-  deleteMenu,
-  createMenu,
-  updateMenu,
-} from "@/api/menu"
-
+  getStudentData,
+  createStudent,
+  updateStudent,
+  deleteStudentById
+} from "@/api/dsms/student/index"
 import mainDialog from "./mainDialog"
 
 export default {
-  name: "menu",
+  name: "DsmsStudentView",
   mixins: [mixins],
   components: {
     mainDialog
@@ -58,16 +54,14 @@ export default {
   methods: {
     getList () {
       this.tableLoading = true
-      getMenuTreeAll(this.listQuery).then(({ data }) => {
-        this.mainTableData = data.data
-        this.pagination.total = data.data.length
+      getStudentData(this.listQuery).then(({ data }) => {
+        this.mainTableData = data.data.records
+        this.pagination.total = data.data.total
         this.tableLoading = false
       })
     },
     handleCreate () {
-      this.$refs['mainDialog'].open({
-        pid: 0
-      }, 'create')
+      this.$refs['mainDialog'].open({}, 'create')
     },
     handleDetail (rowData) {
       this.$refs['mainDialog'].open(rowData, 'detail')
@@ -75,41 +69,42 @@ export default {
     handleUpdate (rowData) {
       this.$refs['mainDialog'].open(rowData, 'update')
     },
-    handleCreateChildren (rowData) {
-      this.$refs['mainDialog'].open({
-        pid: rowData.id
-      }, 'create')
-    },
     handleDelete (rowData) {
-      this.$confirm(`是否确认删除菜单：${rowData.name}`, '提示', {
+      this.$confirm(`是否确认删除学员：${rowData.name}`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        return deleteMenu(rowData.id)
+        return deleteStudentById(rowData.id)
       }).then(() => {
         this.$message.success("删除成功")
         this.handleFilter()
       }).catch(() => {})
     },
-    handleCreateSubmit (formData) {
-      createMenu(formData).then(() => {
-        return this.$store.dispatch('GetUserMenuList')
-      }).then(() => {
-        this.$message.success("新增菜单成功")
-        this.$refs['mainDialog'].close()
+    handleCreateSubmit (formData, done) {
+      createStudent(formData).then(() => {
+        this.$message.success('新增学员成功')
         this.handleFilter()
+        this.$refs['mainDialog'].close()
+        done()
+      }).catch(() => {
+        done()
       })
     },
-    handleUpdateSubmit (formData) {
-      updateMenu(formData).then(() => {
-        return this.$store.dispatch('GetUserMenuList')
-      }).then(() => {
-        this.$message.success("更新菜单成功")
-        this.$refs['mainDialog'].close()
+    handleUpdateSubmit (formData, done) {
+      updateStudent(formData).then(() => {
+        this.$message.success('编辑学员成功')
         this.handleFilter()
+        this.$refs['mainDialog'].close()
+        done()
+      }).catch(() => {
+        done()
       })
-    },
+    }
   }
 }
 </script>
+
+<style>
+
+</style>

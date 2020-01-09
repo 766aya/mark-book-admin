@@ -32,7 +32,7 @@ Router.afterEach((to, from) => {
   console.log(`%c Router afterEach ====> from ${from.path} to ${to.path}`, 'color: #35495E')
   if (to.meta) {
     let breadcrumbs = to.meta.breadcrumbs || []
-    let defaultTitle = '书签/内容收藏管理系统'
+    let defaultTitle = '通用管理系统'
     if (breadcrumbs.length !== 0) {
       document.title = `${breadcrumbs[breadcrumbs.length - 1].title}-${defaultTitle}`
     }

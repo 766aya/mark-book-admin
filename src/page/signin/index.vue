@@ -3,7 +3,7 @@
     <div class="login-content">
       <div class="login-form-layout">
         <img class="logo" src="/images/login/logo.png">
-        <span class="title">书签/内容收藏管理系统</span>
+        <span class="title">通用管理系统</span>
         <div class="form">
           <LoginForm v-if="routeType === 'login'"></LoginForm>
           <RegisterForm v-if="routeType === 'register'"></RegisterForm>
